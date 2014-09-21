@@ -1,5 +1,6 @@
 package net.cubespace.geSuitPortals.listeners;
 
+import java.util.List;
 import net.cubespace.geSuitPortals.managers.PortalsManager;
 import net.cubespace.geSuitPortals.objects.Portal;
 import org.bukkit.Location;
@@ -41,9 +42,12 @@ public class AntiBurnListener implements Listener {
 
     private boolean checkIfInPortal(Block block) {
         if (canIgnite(block)) {
-            for (Portal p : PortalsManager.PORTALS.get(block.getWorld())) {
-                if (p.isBlockInPortal(block)) {
-                    return true;
+            List<Portal> portals = PortalsManager.PORTALS.get(block.getWorld());
+            if (portals != null) {
+                for (Portal p : portals) {
+                    if (p.isBlockInPortal(block)) {
+                        return true;
+                    }
                 }
             }
 
